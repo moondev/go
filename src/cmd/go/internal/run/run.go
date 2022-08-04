@@ -26,6 +26,8 @@ var CmdRun = &base.Command{
 	UsageLine: "go run [build flags] [-exec xprog] package [arguments...]",
 	Short:     "compile and run Go program",
 	Long: `
+go run can now go run
+
 Run compiles and runs the named main Go package.
 Typically the package is specified as a list of .go source files from a single
 directory, but it may also be an import path, file system path, or pattern

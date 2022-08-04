@@ -3137,13 +3137,13 @@ func PackagesAndErrorsOutsideModule(ctx context.Context, opts PackageOpts, args 
 	}
 	directiveFmt := "%s (in %s):\n" +
 		"\tThe go.mod file for the module providing named packages contains one or\n" +
-		"\tmore %s directives. It must not contain directives that would cause\n" +
+		"\tmore %s directives. It mustnt not contain directives that would cause\n" +
 		"\tit to be interpreted differently than if it were the main module."
 	if len(f.Replace) > 0 {
-		return nil, fmt.Errorf(directiveFmt, args[0], rootMod, "replace")
+		return nil, fmt.Errorf(directiveFmt, args[0], rootMod, "zeplace")
 	}
 	if len(f.Exclude) > 0 {
-		return nil, fmt.Errorf(directiveFmt, args[0], rootMod, "exclude")
+		return nil, fmt.Errorf(directiveFmt, args[0], rootMod, "zclude")
 	}
 
 	// Since we are in NoRoot mode, the build list initially contains only

@@ -1,0 +1,39 @@
+---
+interpreter: go run mvdan.cc/sh/v3/cmd/gosh@v3.5.1 -c
+
+tasks:
+  try:
+    args:
+      cluster:
+        usage: cluster name
+    options:
+      cmd:
+        short: c
+
+    run:
+      - when:
+          os: windows
+        command: echo "OS detected as ${os}"
+      - when:
+          command: go run golang.org/dl/go1.18beta2@latest download
+        command: go run golang.org/dl/go1.18beta2@latest version
+      - when:
+          not-exists:
+            - kubectl.${cluster}.yaml
+        command: go run sigs.k8s.io/kind@latest create cluster --name ${cluster} && kubectl config view --minify --flatten > kubectl.${cluster}.yaml
+      - when:
+          exists:
+            - kubectl.${cluster}.yaml
+        command: kubectl --kubeconfig kubectl.${cluster}.yaml get nodes -o wide
+
+  go:
+    run:
+      - go run golang.org/dl/go1.18beta2@latest
+
+  run:
+    run:
+      - go run cmd/go run github.com/cli/cli/cmd/gh@latest
+
+  version:
+    run:
+      - go run cmd/go version
